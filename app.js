@@ -74,8 +74,8 @@ async function createPage() {
                 }
             ]);; //ask the user for engineer info
             employees.push(new Engineer(engineerInfo.name, engineerInfo.id, engineerInfo.email, engineerInfo.github))
-        } 
-        else {
+
+        } else {
             const internInfo = await inquirer.prompt([{
                     type: "input",
                     message: "What is your full name?",
@@ -100,21 +100,12 @@ async function createPage() {
             employees.push(new Intern(internInfo.name, internInfo.id, internInfo.email, internInfo.school))
         }
     }
-    
+
     const output = path.resolve(__dirname, "output");
     const final_output = path.join(output, "team.html");
     if (!fs.existsSync(output)) {
         fs.mkdirSync(output);
-      }
-
-    //write the html string to a file via FS
-    // fs.writeFile(final_output, html, function (err) {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         console.log("The file was saved!");
-    //     }
-    // });
+    }
     console.log(final_output);
 }
 createPage();
@@ -141,3 +132,12 @@ createPage();
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+
+// fs.writeFile(final_output, html, function (err) {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         console.log("The file was saved!");
+//     }
+// });
