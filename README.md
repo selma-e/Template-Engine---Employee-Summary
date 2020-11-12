@@ -14,7 +14,7 @@ In this project, I am rendering an HTML page based off user input using the node
 * fs.mkdirSync() to create a new directory asynchronously https://nodejs.org/api/fs.html#fs_fs_mkdir_path_options_callback
 
 ## Installation:
-* If you need to pull my code for this homework, please visit my Github repository at: https://github.com/selma-e/Template-Engine-Employee-Summary
+If you need to pull my code for this homework, please visit my Github repository at: https://github.com/selma-e/Template-Engine-Employee-Summary
 
 From there, you can git clone my repository locally to run the project. You will need to do the following node commands:
 1) npm i (to install all dependencies)
