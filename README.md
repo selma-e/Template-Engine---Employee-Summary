@@ -22,8 +22,8 @@ From there, you can git clone my repository locally to run the project. You will
 2) node app.js (to run the program). Once the program is run, you will have an output folder with a team.html to view.
 
 ## Usage: 
-* <img src="./Assets/screenshot1.png" alt="the terminal generating inquirer">
-* <img src="./Assets/screenshot2.png" alt="the html page">
+<img src="./Assets/screenshot1.png" alt="the terminal generating inquirer">
+<img src="./Assets/screenshot2.png" alt="the html page">
 
 ## Resources Used/Credits:
 
