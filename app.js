@@ -7,9 +7,10 @@ const path = require("path");
 const fs = require("fs");
 const render = require("./lib/htmlRenderer");
 
+// Asynchronous function that will take an empty array for employees and push information brought in from inquirer prompts
 async function createPage() {
     var employees = [];
-
+    //Manager info
     const managerInfo = await inquirer.prompt([{
             type: "input",
             message: "What is your full name?",
@@ -30,8 +31,10 @@ async function createPage() {
             message: "What is your office number?",
             name: "officeNumber"
         }
-    ]); //ask user for manager info
+    ]);
     employees.push(new Manager(managerInfo.name, managerInfo.id, managerInfo.email, managerInfo.officeNumber)) //pass manager info into manager constructor
+
+    //Asking the manager how many team members they want to add. Adding validation to make sure it's a number
     const teamMemberCount = (await inquirer.prompt([{
         type: "input",
         message: "How many members are on your team?",
@@ -43,14 +46,17 @@ async function createPage() {
                 return true;
             }
         }
-    }])).count; //ask the user how many team mates they need to add
+    }])).count;
+
+    //For loop to take the team member count and ask what type of employee they are that many times.
     for (let i = 0; i < teamMemberCount; i++) {
         const employeeType = (await inquirer.prompt([{
             type: "list",
             message: "What is the role of the member on your team?",
             name: "role",
             choices: ["Engineer", "Intern"]
-        }])).role; //ask the user what employee type they want to make
+        }])).role;
+        //Engineer info
         if (employeeType === "Engineer") {
             const engineerInfo = await inquirer.prompt([{
                     type: "input",
@@ -74,7 +80,7 @@ async function createPage() {
                 }
             ]);; //ask the user for engineer info
             employees.push(new Engineer(engineerInfo.name, engineerInfo.id, engineerInfo.email, engineerInfo.github))
-
+            //Intern info
         } else {
             const internInfo = await inquirer.prompt([{
                     type: "input",
@@ -100,7 +106,9 @@ async function createPage() {
             employees.push(new Intern(internInfo.name, internInfo.id, internInfo.email, internInfo.school))
         }
     }
+    //The piece of the puzzle that connects the htmlRenderer.js.
     let html = render(employees);
+    //Creates the output folder if it doesn't already exist and adds the rendered team.html to it
     const output = path.resolve(__dirname, "output");
     const final_output = path.join(output, "team.html");
     if (!fs.existsSync(output)) {
@@ -114,4 +122,5 @@ async function createPage() {
         }
     });
 }
+//Initiating the function.
 createPage();
