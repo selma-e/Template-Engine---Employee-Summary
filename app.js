@@ -8,8 +8,8 @@ const fs = require("fs");
 const render = require("./lib/htmlRenderer");
 
 async function createPage() {
-    let employees = [];
-    let html = render(employees);
+    var employees = [];
+
     const managerInfo = await inquirer.prompt([{
             type: "input",
             message: "What is your full name?",
@@ -38,7 +38,7 @@ async function createPage() {
         name: "count",
         validate: function (input) {
             if (isNaN(input) || input === null) {
-                return "please try inputting a number.";
+                return "Please try inputting a number.";
             } else {
                 return true;
             }
@@ -47,29 +47,29 @@ async function createPage() {
     for (let i = 0; i < teamMemberCount; i++) {
         const employeeType = (await inquirer.prompt([{
             type: "list",
-            message: "What is the role of a member on your team?",
+            message: "What is the role of the member on your team?",
             name: "role",
             choices: ["Engineer", "Intern"]
         }])).role; //ask the user what employee type they want to make
         if (employeeType === "Engineer") {
             const engineerInfo = await inquirer.prompt([{
                     type: "input",
-                    message: "What is your full name?",
+                    message: "What is their full name?",
                     name: "name"
                 },
                 {
                     type: "input",
-                    message: "What is your employee id?",
+                    message: "What is their employee id?",
                     name: "id"
                 },
                 {
                     type: "input",
-                    message: "What is your email address?",
+                    message: "What is their email address?",
                     name: "email"
                 },
                 {
                     type: "input",
-                    message: "What is your github username?",
+                    message: "What is their Github username?",
                     name: "github"
                 }
             ]);; //ask the user for engineer info
@@ -78,29 +78,29 @@ async function createPage() {
         } else {
             const internInfo = await inquirer.prompt([{
                     type: "input",
-                    message: "What is your full name?",
+                    message: "What is their full name?",
                     name: "name"
                 },
                 {
                     type: "input",
-                    message: "What is your employee id?",
+                    message: "What is their employee id?",
                     name: "id"
                 },
                 {
                     type: "input",
-                    message: "What is your email address?",
+                    message: "What is their email address?",
                     name: "email"
                 },
                 {
                     type: "input",
-                    message: "What is your school?",
+                    message: "What is their school?",
                     name: "school"
                 }
             ]);; //ask the user for intern info
             employees.push(new Intern(internInfo.name, internInfo.id, internInfo.email, internInfo.school))
         }
     }
-
+    let html = render(employees);
     const output = path.resolve(__dirname, "output");
     const final_output = path.join(output, "team.html");
     if (!fs.existsSync(output)) {
@@ -110,21 +110,8 @@ async function createPage() {
         if (err) {
             console.log(err);
         } else {
-            console.log("The file was saved!");
+            console.log("Your information has been successfully inputed.");
         }
     });
 }
 createPage();
-
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
-
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
